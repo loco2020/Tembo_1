@@ -1,0 +1,66 @@
+[gd_scene load_steps=2 format=3 uid="uid://lnye6maw21ss"]
+
+[ext_resource type="Script" path="res://UI/lost_screen/lost_screen.gd" id="1_v3j15"]
+
+[node name="ColorRect" type="ColorRect"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -483.0
+offset_top = -384.0
+offset_right = 3655.0
+offset_bottom = 159.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.245223, 1.4039)
+size_flags_vertical = 4
+color = Color(0.988235, 0.592157, 0, 1)
+script = ExtResource("1_v3j15")
+
+[node name="text" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -334.226
+offset_top = -9.27969
+offset_right = -287.226
+offset_bottom = 16.7203
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(10.8965, 2.05738)
+text = "Score "
+
+[node name="score" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -582.791
+offset_top = -203.729
+offset_right = -474.791
+offset_bottom = -177.729
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(9.16407, 1.80111)
+text = "0"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1739.95
+offset_top = 382.684
+offset_right = 2334.95
+offset_bottom = 499.684
+scale = Vector2(0.905644, 0.253281)
+theme_override_font_sizes/font_size = 79
+action_mode = 0
+text = "Again"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_button_down"]

@@ -1,0 +1,82 @@
+[gd_scene load_steps=9 format=3 uid="uid://b5qo4qymporli"]
+
+[ext_resource type="Script" path="res://orange/RigidBody2D.gd" id="1_e8cqd"]
+[ext_resource type="Texture2D" uid="uid://cg05vydft6iri" path="res://tembo/assets.png" id="1_kr1de"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vipjb"]
+atlas = ExtResource("1_kr1de")
+region = Rect2(60, 0, 60, 60)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nb0fv"]
+atlas = ExtResource("1_kr1de")
+region = Rect2(120, 0, 60, 50)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3cosi"]
+atlas = ExtResource("1_kr1de")
+region = Rect2(0, 60, 60, 60)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h1jeh"]
+atlas = ExtResource("1_kr1de")
+region = Rect2(0, 0, 60, 60)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pne6f"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vipjb")
+}],
+"loop": true,
+"name": &"grande",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nb0fv")
+}],
+"loop": true,
+"name": &"knife",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3cosi")
+}],
+"loop": true,
+"name": &"milk",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h1jeh")
+}],
+"loop": true,
+"name": &"orange",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cyv4h"]
+size = Vector2(32.75, 31.75)
+
+[node name="orange" type="Node2D"]
+position = Vector2(232, 101)
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+position = Vector2(122, -272)
+collision_layer = 2
+collision_mask = 0
+inertia = 0.94
+gravity_scale = 0.1
+freeze_mode = 1
+script = ExtResource("1_e8cqd")
+
+[node name="type" type="AnimatedSprite2D" parent="RigidBody2D"]
+rotation = -0.616817
+sprite_frames = SubResource("SpriteFrames_pne6f")
+animation = &"knife"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+position = Vector2(-1.375, -1.875)
+shape = SubResource("RectangleShape2D_cyv4h")
+
+[connection signal="draw" from="RigidBody2D" to="RigidBody2D" method="_on_draw"]
+[connection signal="hidden" from="RigidBody2D" to="RigidBody2D" method="_on_hidden"]

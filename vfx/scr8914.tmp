@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://br6imcf2e6xpm"]
+
+[ext_resource type="Script" path="res://vfx/screen_shack.gd" id="1_7o65s"]
+
+[node name="screen_shake" type="Node"]
+script = ExtResource("1_7o65s")
+
+[node name="frequency" type="Timer" parent="."]
+
+[node name="duration" type="Timer" parent="."]
+
+[connection signal="timeout" from="frequency" to="." method="_on_frequency_timeout"]

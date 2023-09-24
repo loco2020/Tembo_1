@@ -1,0 +1,100 @@
+[gd_scene load_steps=14 format=3 uid="uid://w4korths2smb"]
+
+[ext_resource type="Script" path="res://tembo/tembo.gd" id="1_l5g64"]
+[ext_resource type="PackedScene" uid="uid://dnlo0ya67pclm" path="res://guns/guntscn.tscn" id="2_fmfdx"]
+[ext_resource type="Texture2D" uid="uid://ctjbdjt221niu" path="res://tembo_idel.png" id="3_ussf1"]
+[ext_resource type="Texture2D" uid="uid://c5gokcff5cyvb" path="res://run_tembo.png" id="4_ln40f"]
+[ext_resource type="PackedScene" uid="uid://b5c4lolen6b6f" path="res://healthBar/health_bar.tscn" id="5_fyofb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fsl51"]
+size = Vector2(33.7501, 61)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mk2gi"]
+atlas = ExtResource("3_ussf1")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vr1mu"]
+atlas = ExtResource("3_ussf1")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xkkwf"]
+atlas = ExtResource("3_ussf1")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nd8ou"]
+atlas = ExtResource("4_ln40f")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1mvrg"]
+atlas = ExtResource("4_ln40f")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sfwgt"]
+atlas = ExtResource("4_ln40f")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wpfg6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mk2gi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vr1mu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xkkwf")
+}],
+"loop": true,
+"name": &"stand",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nd8ou")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1mvrg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sfwgt")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 10.0
+}]
+
+[node name="tembo" type="Node2D"]
+scale = Vector2(0.799998, 1)
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+script = ExtResource("1_l5g64")
+
+[node name="HealthBar" parent="CharacterBody2D" instance=ExtResource("5_fyofb")]
+position = Vector2(-438.751, -535)
+scale = Vector2(0.921379, 0.566165)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(-1.875, 4.5)
+shape = SubResource("RectangleShape2D_fsl51")
+
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
+position = Vector2(2.50001, -247)
+scale = Vector2(0.959999, 1)
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+
+[node name="gun" parent="CharacterBody2D" instance=ExtResource("2_fmfdx")]
+position = Vector2(-1.58107, 5.75534)
+rotation = -1.55509
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
+sprite_frames = SubResource("SpriteFrames_wpfg6")
+animation = &"stand"
+frame_progress = 0.28738
+
+[node name="Timer" type="Timer" parent="CharacterBody2D"]
+wait_time = 0.18
+autostart = true
+
+[connection signal="timeout" from="CharacterBody2D/Timer" to="CharacterBody2D" method="_on_timer_timeout"]

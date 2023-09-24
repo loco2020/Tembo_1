@@ -1,0 +1,37 @@
+[gd_resource type="VisualShader" load_steps=3 format=3 uid="uid://bv8huddeveqj3"]
+
+[sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_wkbms"]
+output_port_for_preview = 0
+parameter_name = "hit"
+default_value_enabled = true
+
+[sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_eo0lu"]
+output_port_for_preview = 0
+parameter_name = "ColorParameter"
+default_value_enabled = true
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
+
+uniform vec4 ColorParameter : source_color = vec4(1.000000, 1.000000, 1.000000, 1.000000);
+
+
+
+void vertex() {
+// ColorParameter:2
+	vec4 n_out2p0 = ColorParameter;
+
+
+// Output:0
+	COLOR.rgb = vec3(n_out2p0.xyz);
+
+
+}
+"
+nodes/vertex/2/node = SubResource("VisualShaderNodeColorParameter_eo0lu")
+nodes/vertex/2/position = Vector2(80, 140)
+nodes/vertex/connections = PackedInt32Array(2, 0, 0, 6)
+nodes/fragment/0/position = Vector2(500, 80)
+nodes/fragment/2/node = SubResource("VisualShaderNodeColorParameter_wkbms")
+nodes/fragment/2/position = Vector2(100, 164.861)

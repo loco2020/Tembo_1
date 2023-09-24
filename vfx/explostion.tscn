@@ -1,0 +1,116 @@
+[gd_scene load_steps=12 format=3 uid="uid://c3o3w6wk42j7v"]
+
+[sub_resource type="Animation" id="Animation_k6sjs"]
+resource_name = "explod"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1.2),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_redraw"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_hofwx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_o1aw1"]
+resource_name = "new_animation"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jumd2"]
+_data = {
+"RESET": SubResource("Animation_hofwx"),
+"explod": SubResource("Animation_k6sjs"),
+"new_animation": SubResource("Animation_o1aw1")
+}
+
+[sub_resource type="Curve" id="Curve_c14wy"]
+min_value = -360.0
+max_value = 360.0
+_data = [Vector2(0, -360), 0.0, 0.0, 0, 0, Vector2(1, 360), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_0yy4l"]
+curve = SubResource("Curve_c14wy")
+
+[sub_resource type="Gradient" id="Gradient_5sgg2"]
+offsets = PackedFloat32Array(0.0606061, 0.69697, 0.844156, 1)
+colors = PackedColorArray(0.85, 0.1955, 0.1955, 1, 0.924778, 0.42723, 0.096349, 1, 0.21341, 0.0985915, 0.0222344, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_1iahe"]
+gradient = SubResource("Gradient_5sgg2")
+
+[sub_resource type="Curve" id="Curve_nqdkc"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.496183, 1), -0.123488, -0.123488, 0, 0, Vector2(0.931298, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_micpc"]
+curve = SubResource("Curve_nqdkc")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_v67wq"]
+emission_shape = 2
+emission_sphere_radius = 9.86
+particle_flag_disable_z = true
+spread = 180.0
+flatness = 0.83
+gravity = Vector3(0, 50, 0)
+initial_velocity_max = 321.68
+angular_velocity_min = -538.74
+angular_velocity_max = 161.12
+angular_velocity_curve = SubResource("CurveTexture_0yy4l")
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+damping_max = 9.791
+angle_min = -720.0
+angle_max = 720.0
+scale_min = 0.0
+scale_max = 24.39
+scale_curve = SubResource("CurveTexture_micpc")
+color_ramp = SubResource("GradientTexture1D_1iahe")
+
+[node name="Marker2D" type="Marker2D"]
+
+[node name="boom" type="AnimationPlayer" parent="."]
+root_node = NodePath("../explod")
+autoplay = "explod"
+libraries = {
+"": SubResource("AnimationLibrary_jumd2")
+}
+
+[node name="explod" type="GPUParticles2D" parent="."]
+position = Vector2(-2.99997, 1)
+scale = Vector2(0.789239, 0.537783)
+emitting = false
+amount = 300
+process_material = SubResource("ParticleProcessMaterial_v67wq")

@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://dnlo0ya67pclm"]
+
+[ext_resource type="Script" path="res://guns/guntscn.gd" id="1_ssrwe"]
+
+[node name="gun" type="Marker2D"]
+script = ExtResource("1_ssrwe")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(1, -85)
+scale = Vector2(-1.20198, 2.13194)
+color = Color(0, 0.666667, 0.960784, 1)
+polygon = PackedVector2Array(0, -8, -8, 0, 0, 9, 8, 0)
+
+[node name="shooting time" type="Timer" parent="."]
+wait_time = 0.2
+autostart = true
+
+[connection signal="timeout" from="shooting time" to="." method="shot"]

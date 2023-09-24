@@ -1,0 +1,103 @@
+[gd_scene load_steps=11 format=3 uid="uid://bd06w3edajqi0"]
+
+[ext_resource type="PackedScene" uid="uid://w4korths2smb" path="res://tembo/tembo.tscn" id="1_3lwpa"]
+[ext_resource type="Script" path="res://map_world/world.gd" id="1_dyxhg"]
+[ext_resource type="PackedScene" uid="uid://lnye6maw21ss" path="res://UI/lost_screen/lost_screen.tscn" id="3_h2hax"]
+[ext_resource type="PackedScene" uid="uid://b5d0okww3vj0h" path="res://UI/main/main.tscn" id="4_hhi20"]
+[ext_resource type="Texture2D" uid="uid://d4er06po1qf8s" path="res://map_world/background_layer_1.png" id="5_8mots"]
+[ext_resource type="Texture2D" uid="uid://u2kbpflcx45p" path="res://map_world/background_layer_5.png" id="6_6v3pn"]
+[ext_resource type="Texture2D" uid="uid://c2vvevmvxsuar" path="res://map_world/background_layer_3.png" id="6_44i4y"]
+[ext_resource type="Texture2D" uid="uid://bpdf5qmplkxg3" path="res://map_world/background_layer_2.png" id="6_55duv"]
+[ext_resource type="Texture2D" uid="uid://dtqvw27y8ai8e" path="res://map_world/background_layer_0.png" id="6_70qg0"]
+[ext_resource type="Texture2D" uid="uid://elmkxpy485os" path="res://map_world/background_layer_4.png" id="7_8dhqm"]
+
+[node name="world" type="Node2D"]
+position = Vector2(22, -38)
+script = ExtResource("1_dyxhg")
+
+[node name="end" parent="." instance=ExtResource("3_h2hax")]
+visible = false
+offset_left = -111.0
+offset_top = -20.0
+offset_right = 4188.0
+offset_bottom = 489.0
+size_flags_horizontal = 4
+color = Color(0.547897, 0.627641, 0.635551, 1)
+
+[node name="end_position" type="Marker2D" parent="end"]
+
+[node name="Node2D" parent="." instance=ExtResource("1_3lwpa")]
+position = Vector2(412, 532)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.8
+autostart = true
+
+[node name="Label" type="Label" parent="."]
+offset_left = 404.0
+offset_top = 23.0
+offset_right = 444.0
+offset_bottom = 46.0
+
+[node name="main" parent="." instance=ExtResource("4_hhi20")]
+position = Vector2(-22, 0)
+scale = Vector2(1.0843, 1.0596)
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="l5" type="ParallaxLayer" parent="ParallaxBackground"]
+scale = Vector2(1.37, 1.37)
+motion_scale = Vector2(0, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/l5"]
+position = Vector2(286.131, 221.168)
+scale = Vector2(1, 1.24088)
+texture = ExtResource("6_70qg0")
+
+[node name="l1" type="ParallaxLayer" parent="ParallaxBackground"]
+scale = Vector2(1.37, 1.37)
+motion_scale = Vector2(0.015, 0.015)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/l1"]
+position = Vector2(350.365, 186.861)
+texture = ExtResource("6_6v3pn")
+
+[node name="l3" type="ParallaxLayer" parent="ParallaxBackground"]
+scale = Vector2(1.37, 1.37)
+motion_scale = Vector2(0.03, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/l3"]
+position = Vector2(332.847, 239.416)
+texture = ExtResource("6_44i4y")
+
+[node name="l2" type="ParallaxLayer" parent="ParallaxBackground"]
+scale = Vector2(1.37, 1.37)
+motion_scale = Vector2(0.02, 0.02)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/l2"]
+position = Vector2(332.847, 204.38)
+texture = ExtResource("7_8dhqm")
+
+[node name="l4" type="ParallaxLayer" parent="ParallaxBackground"]
+scale = Vector2(1.37, 1.37)
+motion_scale = Vector2(0.05, 0.05)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/l4"]
+position = Vector2(313.139, 216.788)
+texture = ExtResource("6_55duv")
+
+[node name="l6" type="ParallaxLayer" parent="ParallaxBackground"]
+scale = Vector2(1.37, 1.37)
+motion_scale = Vector2(0, 0)
+
+[node name="bk" type="Sprite2D" parent="ParallaxBackground/l6"]
+position = Vector2(327.007, 237.226)
+scale = Vector2(1.13, 1.09854)
+texture = ExtResource("5_8mots")
+
+[node name="Time" type="Timer" parent="."]
+wait_time = 15.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Time" to="." method="_on_def_time_timeout"]

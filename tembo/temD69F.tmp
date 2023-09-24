@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://w4korths2smb"]
+
+[ext_resource type="Script" path="res://tembo/tembo.gd" id="1_l5g64"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fsl51"]
+size = Vector2(71, 121)
+
+[node name="tembo" type="Node2D"]
+scale = Vector2(0.799998, 1)
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+script = ExtResource("1_l5g64")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(0, -8.5)
+shape = SubResource("RectangleShape2D_fsl51")
+
+[node name="ColorRect" type="ColorRect" parent="CharacterBody2D/CollisionShape2D"]
+offset_left = -36.0
+offset_top = -58.0
+offset_right = 35.0
+offset_bottom = 60.0
+color = Color(0.964706, 0.294118, 0.317647, 1)
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="."]
+remote_path = NodePath("../CharacterBody2D")
+
+[node name="Camera2D" type="Camera2D" parent="RemoteTransform2D"]
+position = Vector2(2.50001, -235)
+scale = Vector2(0.959999, 1)
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0

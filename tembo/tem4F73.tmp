@@ -1,0 +1,307 @@
+[gd_scene load_steps=27 format=3 uid="uid://w4korths2smb"]
+
+[ext_resource type="Script" path="res://tembo/tembo.gd" id="1_l5g64"]
+[ext_resource type="Shader" uid="uid://bv8huddeveqj3" path="res://tembo/tembo.tres" id="1_rvsow"]
+[ext_resource type="PackedScene" uid="uid://dnlo0ya67pclm" path="res://guns/guntscn.tscn" id="2_fmfdx"]
+[ext_resource type="Texture2D" uid="uid://d07qrsa5agfmb" path="res://tembo/tembo.png" id="4_hva3g"]
+[ext_resource type="Shader" uid="uid://c1jrgd80rpq4r" path="res://tembo/hitlash.tres" id="5_40mrs"]
+[ext_resource type="PackedScene" uid="uid://b5c4lolen6b6f" path="res://healthBar/health_bar.tscn" id="5_fyofb"]
+[ext_resource type="Script" path="res://tembo/Camera2D.gd" id="6_cs8kf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rlmt8"]
+render_priority = 0
+shader = ExtResource("1_rvsow")
+shader_parameter/ColorParameter = Color(1, 1, 1, 1)
+
+[sub_resource type="Animation" id="Animation_te64t"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("tembo:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_ccmv4"]
+resource_name = "hit_flash"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("tembo:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_faovi"]
+_data = {
+"RESET": SubResource("Animation_te64t"),
+"hit_flash": SubResource("Animation_ccmv4")
+}
+
+[sub_resource type="Animation" id="Animation_h7s8f"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("tembo:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("tembo:material:shader_parameter/enabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("partcile_right:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_lp02l"]
+resource_name = "hit_flash"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("tembo:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+
+[sub_resource type="Animation" id="Animation_om7me"]
+resource_name = "run"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("tembo:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [3, 4, 5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("partcile_right:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_mmrp1"]
+resource_name = "stand"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("tembo:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("partcile_right:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_s4m4d"]
+_data = {
+"RESET": SubResource("Animation_h7s8f"),
+"hit_flash": SubResource("Animation_lp02l"),
+"run": SubResource("Animation_om7me"),
+"stand": SubResource("Animation_mmrp1")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d8tld"]
+size = Vector2(37, 28)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l5iwk"]
+resource_local_to_scene = true
+shader = ExtResource("5_40mrs")
+shader_parameter/enabled = false
+shader_parameter/hit = Color(1, 1, 1, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5sbha"]
+size = Vector2(33.7501, 61)
+
+[sub_resource type="Curve" id="Curve_s6lum"]
+min_value = -360.0
+max_value = 360.0
+_data = [Vector2(0, -360), 0.0, 0.0, 0, 0, Vector2(0.770992, 360), 0.0, 0.0, 0, 0, Vector2(0.996183, 360), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_lbemo"]
+curve = SubResource("Curve_s6lum")
+
+[sub_resource type="Curve" id="Curve_ndys2"]
+max_value = 100.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_qxeuw"]
+curve = SubResource("Curve_ndys2")
+
+[sub_resource type="Curve" id="Curve_c5h0q"]
+_data = [Vector2(0.0267176, 0.252632), 0.0, 0.0, 0, 0, Vector2(0.698473, 0.736842), 2.46759, 2.46759, 0, 0, Vector2(0.900763, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_qanhw"]
+width = 41
+curve = SubResource("Curve_c5h0q")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7j8w0"]
+lifetime_randomness = 0.08
+particle_flag_disable_z = true
+direction = Vector3(-1, -80, -20)
+spread = 23.3
+flatness = 0.49
+gravity = Vector3(500, -200, 0)
+initial_velocity_max = 174.83
+angular_velocity_min = -721.1
+angular_velocity_max = 191.33
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+damping_min = 100.0
+damping_max = 100.0
+damping_curve = SubResource("CurveTexture_qxeuw")
+angle_min = -720.0
+angle_max = 720.0
+angle_curve = SubResource("CurveTexture_lbemo")
+scale_min = 0.0
+scale_max = 5.0
+scale_curve = SubResource("CurveTexture_qanhw")
+
+[node name="Node2D" type="Node2D"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+material = SubResource("ShaderMaterial_rlmt8")
+use_parent_material = true
+script = ExtResource("1_l5g64")
+
+[node name="hit_flash" type="AnimationPlayer" parent="CharacterBody2D"]
+libraries = {
+"": SubResource("AnimationLibrary_faovi")
+}
+
+[node name="tembo_animation" type="AnimationPlayer" parent="CharacterBody2D"]
+libraries = {
+"": SubResource("AnimationLibrary_s4m4d")
+}
+
+[node name="Area2D" type="Area2D" parent="CharacterBody2D"]
+position = Vector2(0.125, -5.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/Area2D"]
+position = Vector2(-0.125, -19.5)
+shape = SubResource("RectangleShape2D_d8tld")
+
+[node name="tembo" type="Sprite2D" parent="CharacterBody2D"]
+material = SubResource("ShaderMaterial_l5iwk")
+position = Vector2(1.99998, -7.00003)
+scale = Vector2(0.796875, 1.02232)
+texture = ExtResource("4_hva3g")
+hframes = 6
+
+[node name="on_hit" type="Timer" parent="CharacterBody2D"]
+wait_time = 0.2
+
+[node name="HealthBar" parent="CharacterBody2D" instance=ExtResource("5_fyofb")]
+offset_left = -42.5001
+offset_top = -527.0
+offset_right = 76.4999
+offset_bottom = -510.0
+scale = Vector2(0.921379, 0.566165)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(0.125, -5.5)
+shape = SubResource("RectangleShape2D_5sbha")
+
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
+position = Vector2(2.50001, -247)
+scale = Vector2(0.959999, 1)
+position_smoothing_speed = 10.0
+script = ExtResource("6_cs8kf")
+
+[node name="duration" type="Timer" parent="CharacterBody2D/Camera2D"]
+wait_time = 0.563
+
+[node name="gun" parent="CharacterBody2D" instance=ExtResource("2_fmfdx")]
+position = Vector2(-1.3388, -1.43746)
+rotation = -0.0219892
+
+[node name="Timer" type="Timer" parent="CharacterBody2D"]
+wait_time = 0.18
+autostart = true
+
+[node name="partcile_right" type="GPUParticles2D" parent="CharacterBody2D"]
+position = Vector2(0, 22)
+scale = Vector2(0.720003, 0.264226)
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_7j8w0")
+lifetime = 0.5
+preprocess = 67.41
+speed_scale = 7.89
+explosiveness = 1.0
+randomness = 0.09
+collision_base_size = 0.0
+
+[connection signal="timeout" from="CharacterBody2D/Camera2D/duration" to="CharacterBody2D/Camera2D" method="_on_duration_timeout"]
